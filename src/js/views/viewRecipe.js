@@ -1,6 +1,8 @@
 import icons from '../../img/icons.svg'; // parcel 1
 import icons from 'url:../../img/icons.svg'; // parcel 2
 
+import {Fraction} from 'fractional';
+
 class ViewRecipe {
     #parentEl = document.querySelector('.recipe');
     #data;
@@ -67,22 +69,9 @@ class ViewRecipe {
                 <h2 class="heading--2">Recipe ingredients</h2>
                 <ul class="recipe__ingredient-list">
                 ${
-                this.#data.ingrediensts.map(ing => {
-                    return `
-                    <li class="recipe__ingredient">
-                    <svg class="recipe__icon">
-                        <use href="${icons}.svg#icon-check"></use>
-                    </svg>
-                    <div class="recipe__quantity">${ing.quantity}</div>
-                    <div class="recipe__description">
-                        <span class="recipe__unit">${ing.unit}</span>
-                    ${ing.description}
-                    </div>
-                    </li>
-                    `;
-                }).join('')
+                this.#data.ingrediensts.map(ing => this.        #createRecipeIngredientsMarkup(ing)
+                ).join('')
                 }
-                
                 </ul>
             </div>
     
@@ -104,6 +93,21 @@ class ViewRecipe {
                 </svg>
                 </a>
             </div>
+        `
+    }
+
+    #createRecipeIngredientsMarkup(ing){
+        return `
+            <li class="recipe__ingredient">
+                <svg class="recipe__icon">
+                    <use href="${icons}.svg#icon-check"></use>
+                </svg>
+                <div class="recipe__quantity">${ing.quantity ? new Fraction(ing.quantity) : ''}</div>
+                <div class="recipe__description">
+                    <span class="recipe__unit">${ing.unit}</span>
+                ${ing.description}
+                </div>
+            </li>
         `
     }
 

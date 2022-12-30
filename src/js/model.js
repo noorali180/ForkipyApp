@@ -1,20 +1,16 @@
+import { getJSON } from "./helpers.js";
+import { timeout } from "./helpers.js";
+import { TIMEOUT_SEC } from "./config.js";
+
 export const state = {
     recipe: {},
 }
 
 export const loadRecipe = async function(id){
     try{
-        const res = await fetch(
-            // 'https://forkify-api.herokuapp.com/api/v2/recipes/5ed6604591c37cdc054bc886'
-            `https://forkify-api.herokuapp.com/api/v2/recipes/${id}`
-      
-            );
-          const data = await res.json();
-      
-          if(!res.ok) {
-            throw new Error(`${data.message} (${res.status})`);
-          }
-      
+
+        const data = await Promise.race([getJSON(id), timeout(TIMEOUT_SEC)]);
+        
         let {recipe} = data.data;
           recipe = {
             title : recipe.title,
