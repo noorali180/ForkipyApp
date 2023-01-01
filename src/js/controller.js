@@ -5,9 +5,6 @@ import 'regenerator-runtime/runtime'
 import * as model from './model.js'
 import {viewRecipe} from './views/viewRecipe.js';
 
-const recipeContainer = document.querySelector('.recipe');
-
-
 
 // https://forkify-api.herokuapp.com/v2
 
@@ -15,10 +12,10 @@ const recipeContainer = document.querySelector('.recipe');
 
 
 
-const showRecipe = async function() {
+const controlRecipes = async function() {
   try{
     const id = window.location.hash.slice(1);
-    // guard clause, (id not exist)
+    // guard clause, (id don't exist)
     if(!id) return;
 
     viewRecipe.renderSpinner();
@@ -27,12 +24,19 @@ const showRecipe = async function() {
       await model.loadRecipe(id);
     // 2. render recipe
       viewRecipe.render(model.state.recipe);
-
   }
   catch (err){
-    console.log(err);
+    viewRecipe.renderErrorMessage();
   }
 }
 
-window.addEventListener('hashchange', showRecipe);
+// window.addEventListener('hashchange', controlRecipes);
 // showRecipe();
+
+// PUBLISHER-SUBSCRIBER Architecture,
+// publisher: knows when to react => addHandlerRender (view)
+// subscriber: wants to react => init (controller)
+const init = function(){
+  viewRecipe.addHandlerRender(controlRecipes);
+}
+init();

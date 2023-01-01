@@ -8,7 +8,6 @@ export const state = {
 
 export const loadRecipe = async function(id){
     try{
-
         const data = await Promise.race([getJSON(id), timeout(TIMEOUT_SEC)]);
         
         let {recipe} = data.data;
@@ -27,5 +26,6 @@ export const loadRecipe = async function(id){
     }
     catch(err){
         console.log(`${err} 🔥🔥🔥🔥`);
+        throw err;
     }
 }
