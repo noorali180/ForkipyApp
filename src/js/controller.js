@@ -4,6 +4,8 @@ import 'regenerator-runtime/runtime'
 
 import * as model from './model.js'
 import {viewRecipe} from './views/viewRecipe.js';
+import {viewSearch} from './views/viewSearch.js';
+import { viewResults } from './views/viewResults.js';
 
 
 // https://forkify-api.herokuapp.com/v2
@@ -30,6 +32,26 @@ const controlRecipes = async function() {
   }
 }
 
+const controlSearch = async function(){
+  try{
+    const query = viewSearch.getQuery();
+
+    if(!query) return;
+
+    viewResults.renderSpinner();
+
+    // 1. Get search results.
+      await model.loadSearchResults(query);
+
+    // 2. Render search results. 
+      viewResults.render(model.state.search);
+
+  }
+  catch(err){
+    viewResults.renderErrorMessage('No results found! Try another one');
+  }
+}
+
 // window.addEventListener('hashchange', controlRecipes);
 // showRecipe();
 
@@ -38,5 +60,6 @@ const controlRecipes = async function() {
 // subscriber: wants to react => init (controller)
 const init = function(){
   viewRecipe.addHandlerRender(controlRecipes);
+  viewSearch.addHandlerSearch(controlSearch);
 }
 init();
