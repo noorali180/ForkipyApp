@@ -6,6 +6,7 @@ import * as model from './model.js'
 import {viewRecipe} from './views/viewRecipe.js';
 import {viewSearch} from './views/viewSearch.js';
 import { viewResults } from './views/viewResults.js';
+import { viewPagination } from './views/viewPagination.js';
 
 
 // https://forkify-api.herokuapp.com/v2
@@ -44,12 +45,24 @@ const controlSearch = async function(){
       await model.loadSearchResults(query);
 
     // 2. Render search results. 
-      viewResults.render(model.state.search);
+      // viewResults.render(model.state.search.results);
+      viewResults.render(model.getSearchResultsPerPage(model.state.search.page));
+
+    // 3. Render initial pagination.
+      viewPagination.render(model.state.search);
 
   }
   catch(err){
     viewResults.renderErrorMessage('No results found! Try another one');
   }
+}
+
+const controlPagination = function(goToPage){
+  
+    // 1. Render NEW search results.
+    viewResults.render(model.getSearchResultsPerPage(goToPage));
+    // 4. Render NEW pagination.
+    viewPagination.render(model.state.search);
 }
 
 // window.addEventListener('hashchange', controlRecipes);
@@ -61,5 +74,6 @@ const controlSearch = async function(){
 const init = function(){
   viewRecipe.addHandlerRender(controlRecipes);
   viewSearch.addHandlerSearch(controlSearch);
+  viewPagination.addHandlerClick(controlPagination);
 }
 init();

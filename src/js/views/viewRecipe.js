@@ -6,7 +6,6 @@ import View from './view.js';
 
 class ViewRecipe extends View{
     _parentEl = document.querySelector('.recipe');
-    _data;
     
     #generateRecipeIngredientsMarkup(ing){
         return `

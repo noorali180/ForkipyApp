@@ -1,12 +1,14 @@
 import { getJSON } from "./helpers.js";
 import { timeout } from "./helpers.js";
-import { API_URL, TIMEOUT_SEC } from "./config.js";
+import { API_URL, TIMEOUT_SEC, RES_PER_PAGE } from "./config.js";
 
 export const state = {
     recipe: {},
     search: {
         query: '',
-        result: [],
+        results: [],
+        resultsPerPage: RES_PER_PAGE,
+        page: 1,
     }
 }
 
@@ -46,7 +48,7 @@ export const loadSearchResults = async function(query){
         } 
 
         let {recipes} = data.data;
-        state.search.result = recipes.map(rec => {
+        state.search.results = recipes.map(rec => {
             return {
                 title : rec.title,
                 id : rec.id,
@@ -59,4 +61,15 @@ export const loadSearchResults = async function(query){
         console.log(`${err} 🔥🔥🔥🔥`);
         throw err;
     }
+}
+
+export const getSearchResultsPerPage = function(page = state.search.page){
+    state.search.page = page;
+    
+    const start = (page - 1) * RES_PER_PAGE;
+    const end = page * RES_PER_PAGE;
+
+    const result = state.search.results.slice(start, end);
+
+    return result;
 }

@@ -5,11 +5,9 @@ import View from "./view";
 
 class ViewResults extends View {
     _parentEl = document.querySelector('.results');
-    _data;
 
     _generateMarkup(){
-
-        return this._data.result.map(res => {
+        return this._data.map(res => {
             return `
             <li class="preview">
                 <a class="preview__link preview__link--active" href=#${res.id}>

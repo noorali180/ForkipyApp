@@ -2,6 +2,7 @@ import icons from '../../img/icons.svg'; // parcel 1
 import icons from 'url:../../img/icons.svg'; // parcel 2
 
 export default class View{
+    _data;
     _errorMessage = 'We could not find that recipe. Please try another one!';
     _message = '';
 
