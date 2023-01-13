@@ -27,8 +27,10 @@ const controlRecipes = async function() {
       await model.loadRecipe(id);
     // 2. render recipe
       viewRecipe.render(model.state.recipe);
+
   }
   catch (err){
+    console.log(err)
     viewRecipe.renderErrorMessage();
   }
 }
@@ -65,6 +67,13 @@ const controlPagination = function(goToPage){
     viewPagination.render(model.state.search);
 }
 
+const controlServings = function(newServings){
+  // 1. update new servings in state
+    model.updateServings(newServings);
+  // 2. render the complete recipe with new servings.
+    viewRecipe.render(model.state.recipe);
+}
+
 // window.addEventListener('hashchange', controlRecipes);
 // showRecipe();
 
@@ -73,7 +82,9 @@ const controlPagination = function(goToPage){
 // subscriber: wants to react => init (controller)
 const init = function(){
   viewRecipe.addHandlerRender(controlRecipes);
+  viewRecipe.addHandlerUpdateServings(controlServings);
   viewSearch.addHandlerSearch(controlSearch);
   viewPagination.addHandlerClick(controlPagination);
+  
 }
 init();

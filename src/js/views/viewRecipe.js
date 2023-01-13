@@ -47,12 +47,12 @@ class ViewRecipe extends View{
                 <span class="recipe__info-text">servings</span>
     
                 <div class="recipe__info-buttons">
-                    <button class="btn--tiny btn--increase-servings">
+                    <button class="btn--tiny btn--update-servings" data-upto=${this._data.servings - 1}>
                     <svg>
                         <use href="${icons}.svg#icon-minus-circle"></use>
                     </svg>
                     </button>
-                    <button class="btn--tiny btn--increase-servings">
+                    <button class="btn--tiny btn--update-servings" data-upto=${this._data.servings + 1}>
                     <svg>
                         <use href="${icons}.svg#icon-plus-circle"></use>
                     </svg>
@@ -76,7 +76,7 @@ class ViewRecipe extends View{
                 <h2 class="heading--2">Recipe ingredients</h2>
                 <ul class="recipe__ingredient-list">
                 ${
-                this._data.ingrediensts.map(ing => this.#generateRecipeIngredientsMarkup(ing)
+                this._data.ingredients.map(ing => this.#generateRecipeIngredientsMarkup(ing)
                 ).join('')
                 }
                 </ul>
@@ -107,6 +107,18 @@ class ViewRecipe extends View{
         ['hashchange', 'load'].forEach(ev => {
             window.addEventListener(ev, handler);
         });
+    }
+
+    addHandlerUpdateServings(handler){
+        this._parentEl.addEventListener('click', function(e){
+            const btn = e.target.closest('.btn--tiny');
+            if(!btn) return;
+
+            const newServings = +btn.dataset.upto;
+
+            if(newServings > 0) handler(newServings)
+
+        })
     }
 }
 
