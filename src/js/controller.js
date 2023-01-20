@@ -78,6 +78,11 @@ const controlServings = function(newServings){
     viewRecipe.update(model.state.recipe);
 }
 
+const controlAddBookmark = function(){
+  // 1. add a bookmark
+  model.addBookmark(model.state.recipe);
+}
+
 // window.addEventListener('hashchange', controlRecipes);
 // showRecipe();
 
@@ -87,6 +92,7 @@ const controlServings = function(newServings){
 const init = function(){
   viewRecipe.addHandlerRender(controlRecipes);
   viewRecipe.addHandlerUpdateServings(controlServings);
+  viewRecipe.addHandlerAddBookmark(controlAddBookmark)
   viewSearch.addHandlerSearch(controlSearch);
   viewPagination.addHandlerClick(controlPagination);
   

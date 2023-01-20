@@ -65,9 +65,9 @@ class ViewRecipe extends View{
                     <use href="${icons}.svg#icon-user"></use>
                 </svg>
                 </div>
-                <button class="btn--round">
+                <button class="btn--round btn--bookmark">
                 <svg class="">
-                    <use href="${icons}.svg#icon-bookmark-fill"></use>
+                    <use href="${icons}.svg#icon-bookmark${""}"></use>
                 </svg>
                 </button>
             </div>
@@ -118,6 +118,14 @@ class ViewRecipe extends View{
 
             if(newServings > 0) handler(newServings)
 
+        })
+    }
+
+    addHandlerAddBookmark(handler){
+        this._parentEl.addEventListener('click', function(e){
+            const btn = e.target.closest('.btn--bookmark');
+            if(!btn) return;
+            handler();
         })
     }
 }
