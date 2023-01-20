@@ -34,6 +34,37 @@ export default class View{
         this._parentEl.insertAdjacentHTML('afterbegin', markup);
     }
 
+    update(data){
+        this._data = data;
+
+        // actual/current DOM with previouse values..
+        const newMarkup = this._generateMarkup();
+        // virtual DOM with updated values...(markupString)
+        const newDOM = document.createRange().createContextualFragment(newMarkup);
+
+        const newElements = Array.from(newDOM.querySelectorAll('*'));
+        const oldElements = Array.from(this._parentEl.querySelectorAll('*'));
+        
+        newElements.forEach((newEl, i) => {
+            const curEl = oldElements[i];
+
+            // For updating text content...
+            if(!curEl.isEqualNode(newEl) && 
+            curEl?.firstChild.nodeValue.trim() !== ''){
+                curEl.textContent = newEl.textContent;
+            }
+
+            // For updating attributes...
+            if(!curEl.isEqualNode(newEl)){
+                const attributes = Array.from(newEl.attributes);
+
+                attributes.forEach(attr => {
+                    curEl.setAttribute(attr.name, attr.value);
+                })
+            }
+        })
+    }
+
     renderErrorMessage(message = this._errorMessage) {
         const markup = `
         <div class="error">

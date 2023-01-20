@@ -23,6 +23,9 @@ const controlRecipes = async function() {
 
     viewRecipe.renderSpinner();
 
+    // 0. active recipe get selected.
+      viewResults.update(model.getSearchResultsPerPage());
+
     // 1. get recipe
       await model.loadRecipe(id);
     // 2. render recipe
@@ -71,7 +74,8 @@ const controlServings = function(newServings){
   // 1. update new servings in state
     model.updateServings(newServings);
   // 2. render the complete recipe with new servings.
-    viewRecipe.render(model.state.recipe);
+    // viewRecipe.render(model.state.recipe);
+    viewRecipe.update(model.state.recipe);
 }
 
 // window.addEventListener('hashchange', controlRecipes);

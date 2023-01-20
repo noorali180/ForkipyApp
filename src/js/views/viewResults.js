@@ -7,21 +7,18 @@ class ViewResults extends View {
     _parentEl = document.querySelector('.results');
 
     _generateMarkup(){
+        const id = window.location.hash.slice(1);
+
         return this._data.map(res => {
             return `
             <li class="preview">
-                <a class="preview__link preview__link--active" href=#${res.id}>
+                <a class="preview__link ${id === res.id ? "preview__link--active" : ""}" href=#${res.id}>
                 <figure class="preview__fig">
                     <img src=${res.imageUrl} alt="Test" />
                 </figure>
                 <div class="preview__data">
                     <h4 class="preview__title">${res.title}</h4>
                     <p class="preview__publisher">The ${res.publisher}</p>
-                    <div class="preview__user-generated">
-                    <svg>
-                        <use href="${icons}.svg#icon-user"></use>
-                    </svg>
-                    </div>
                 </div>
                 </a>
             </li>
@@ -31,3 +28,9 @@ class ViewResults extends View {
 }
 
 export const viewResults = new ViewResults();
+
+{/* <div class="preview__user-generated">
+                    <svg>
+                        <use href="${icons}.svg#icon-user"></use>
+                    </svg>
+                    </div> */}
