@@ -50,7 +50,7 @@ export default class View{
 
             // For updating text content...
             if(!curEl.isEqualNode(newEl) && 
-            curEl?.firstChild.nodeValue.trim() !== ''){
+            curEl.firstChild?.nodeValue.trim() !== ''){
                 curEl.textContent = newEl.textContent;
             }
 

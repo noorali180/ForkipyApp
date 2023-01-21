@@ -80,7 +80,11 @@ const controlServings = function(newServings){
 
 const controlAddBookmark = function(){
   // 1. add a bookmark
-  model.addBookmark(model.state.recipe);
+  if(!model.state.recipe.bookmarked) model.addBookmark(model.state.recipe);
+  else model.deleteBookmark(model.state.recipe.id);
+
+  // 2. update the UI
+  viewRecipe.update(model.state.recipe);
 }
 
 // window.addEventListener('hashchange', controlRecipes);
