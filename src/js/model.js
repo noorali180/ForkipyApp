@@ -68,6 +68,16 @@ export const loadSearchResults = async function(query){
     }
 }
 
+export const uploadNewRecipe = async function(data){
+    try{
+        console.log(data);
+    }
+    catch(err){
+        console.log(`${err} 🔥🔥🔥🔥`);
+        throw err;
+    }
+}
+
 export const getSearchResultsPerPage = function(page = state.search.page){
     state.search.page = page;
     

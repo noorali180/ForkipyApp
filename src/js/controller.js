@@ -9,6 +9,7 @@ import {viewSearch} from './views/viewSearch.js';
 import { viewResults } from './views/viewResults.js';
 import { viewPagination } from './views/viewPagination.js';
 import { viewBookmarks } from './views/viewBookmarks.js';
+import { viewAddRecipe } from './views/viewAddRecipe.js';
 
 
 // https://forkify-api.herokuapp.com/v2
@@ -34,6 +35,8 @@ const controlRecipes = async function() {
       await model.loadRecipe(id);
     // 2. render recipe
       viewRecipe.render(model.state.recipe);
+
+      console.log(model.state.recipe);
 
   }
   catch (err){
@@ -98,6 +101,13 @@ const controlBookmarks = function(){
   viewBookmarks.render(model.state.bookmarks);
 }
 
+const controlAddRecipe = async function(newRecipe){
+  const data = newRecipe;
+
+  // Upload
+  await model.uploadNewRecipe(data);
+}
+
 // window.addEventListener('hashchange', controlRecipes);
 // showRecipe();
 
@@ -111,6 +121,7 @@ const init = function(){
   viewRecipe.addHandlerAddBookmark(controlAddBookmark)
   viewSearch.addHandlerSearch(controlSearch);
   viewPagination.addHandlerClick(controlPagination);
+  viewAddRecipe.addHandlerUpload(controlAddRecipe);
   
 }
 init();
