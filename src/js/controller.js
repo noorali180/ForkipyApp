@@ -27,6 +27,7 @@ const controlRecipes = async function() {
 
     // 0. active recipe get selected.
       viewResults.update(model.getSearchResultsPerPage());
+    // active bookmark get selected.
       viewBookmarks.update(model.state.bookmarks);
 
     // 1. get recipe
@@ -93,6 +94,10 @@ const controlAddBookmark = function(){
   viewBookmarks.render(model.state.bookmarks);
 }
 
+const controlBookmarks = function(){
+  viewBookmarks.render(model.state.bookmarks);
+}
+
 // window.addEventListener('hashchange', controlRecipes);
 // showRecipe();
 
@@ -100,6 +105,7 @@ const controlAddBookmark = function(){
 // publisher: knows when to react => addHandlerRender (view)
 // subscriber: wants to react => init (controller)
 const init = function(){
+  viewBookmarks.addHandlerLoad(controlBookmarks);
   viewRecipe.addHandlerRender(controlRecipes);
   viewRecipe.addHandlerUpdateServings(controlServings);
   viewRecipe.addHandlerAddBookmark(controlAddBookmark)
