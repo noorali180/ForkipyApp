@@ -6,6 +6,8 @@ import View from './view.js';
 
 class ViewRecipe extends View{
     _parentEl = document.querySelector('.recipe');
+    _errorMessage = 'We could not find that recipe. Please try another one!';
+    _message = '';
     
     #generateRecipeIngredientsMarkup(ing){
         return `

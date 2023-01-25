@@ -1,19 +1,19 @@
 class ViewSearch {
-    #parentEl = document.querySelector('.search');
+    _parentEl = document.querySelector('.search');
 
-    #clearInput(){
-        this.#parentEl.querySelector('.search__field').value = '';
+    _clearInput(){
+        this._parentEl.querySelector('.search__field').value = '';
     }
     
     getQuery(){
-        const query = this.#parentEl.querySelector('.search__field').value.toLowerCase();
-        this.#clearInput();
+        const query = this._parentEl.querySelector('.search__field').value.toLowerCase();
+        this._clearInput();
         
         return query;
     }
 
     addHandlerSearch(handler){
-        this.#parentEl.addEventListener('submit', function(e){
+        this._parentEl.addEventListener('submit', function(e){
             e.preventDefault();
             handler();
         })

@@ -1,12 +1,14 @@
 'use strict'
 import 'core-js/stable';
-import 'regenerator-runtime/runtime'
+import 'regenerator-runtime/runtime';
+import {async} from 'regenerator-runtime';
 
 import * as model from './model.js'
 import {viewRecipe} from './views/viewRecipe.js';
 import {viewSearch} from './views/viewSearch.js';
 import { viewResults } from './views/viewResults.js';
 import { viewPagination } from './views/viewPagination.js';
+import { viewBookmarks } from './views/viewBookmarks.js';
 
 
 // https://forkify-api.herokuapp.com/v2
@@ -25,6 +27,7 @@ const controlRecipes = async function() {
 
     // 0. active recipe get selected.
       viewResults.update(model.getSearchResultsPerPage());
+      viewBookmarks.update(model.state.bookmarks);
 
     // 1. get recipe
       await model.loadRecipe(id);
@@ -58,7 +61,7 @@ const controlSearch = async function(){
 
   }
   catch(err){
-    viewResults.renderErrorMessage('No results found! Try another one');
+    viewResults.renderErrorMessage();
   }
 }
 
@@ -85,6 +88,9 @@ const controlAddBookmark = function(){
 
   // 2. update the UI
   viewRecipe.update(model.state.recipe);
+
+  // 3. render bookmarks view
+  viewBookmarks.render(model.state.bookmarks);
 }
 
 // window.addEventListener('hashchange', controlRecipes);
