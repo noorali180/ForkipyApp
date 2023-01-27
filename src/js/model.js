@@ -1,4 +1,4 @@
-import { getJSON, sendJSON } from "./helpers.js";
+import { /*getJSON, sendJSON*/ AJAX } from "./helpers.js";
 import { timeout } from "./helpers.js";
 import { API_URL, TIMEOUT_SEC, RES_PER_PAGE, KEY } from "./config.js";
 
@@ -29,7 +29,7 @@ const createRecipeObject = function(recipe){
 
 export const loadRecipe = async function(id){
     try{
-        const data = await Promise.race([getJSON(`${API_URL}${id}`), timeout(TIMEOUT_SEC)]);
+        const data = await Promise.race([AJAX(`${API_URL}${id}?key=${KEY}`), timeout(TIMEOUT_SEC)]);
         
         let {recipe} = data.data;
           recipe = createRecipeObject(recipe);
@@ -50,20 +50,16 @@ export const loadSearchResults = async function(query){
     try{
         state.search.query = query;
 
-        const res = await fetch(`${API_URL}?search=${query}`);
-        const data = await res.json();
-
-        if(!data.results || !res.ok) {
-            throw new Error(`no results found (${res.status})`);
-        } 
+        const data = await AJAX(`${API_URL}?search=${query}&key=${KEY}`);
 
         let {recipes} = data.data;
-        state.search.results = recipes.map(rec => {
+        state.search.results = recipes.map(recipe => {
             return {
-                title : rec.title,
-                id : rec.id,
-                publisher: rec.publisher,
-                imageUrl: rec.image_url,
+                title : recipe.title,
+                id : recipe.id,
+                publisher: recipe.publisher,
+                imageUrl: recipe.image_url,
+                ...(recipe.key && {key : recipe.key})
             };
         });
         state.search.page = 1;
@@ -100,7 +96,7 @@ export const uploadNewRecipe = async function(newRecipe){
             ingredients,
         }
 
-        const data = await sendJSON(`${API_URL}?key=${KEY}`, recipe);
+        const data = await AJAX(`${API_URL}?key=${KEY}`, recipe);
         state.recipe = createRecipeObject(data.data.recipe);
 
         // bookmark the recipe.

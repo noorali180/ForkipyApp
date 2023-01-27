@@ -120,6 +120,12 @@ const controlAddRecipe = async function(newRecipe){
     setTimeout(() => {
       viewAddRecipe._toggleWindow();
     }, HIDE_FORM_TIMEOUT);
+
+    // render bookmarks.
+    viewBookmarks.render(model.state.bookmarks);
+
+    // changint the URL without reloading the page...
+    window.history.pushState(null, '', `#${model.state.recipe.id}`);
   }
   catch(err){
     viewAddRecipe.renderErrorMessage(err.message);
