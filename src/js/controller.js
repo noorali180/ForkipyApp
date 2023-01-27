@@ -10,6 +10,7 @@ import { viewResults } from './views/viewResults.js';
 import { viewPagination } from './views/viewPagination.js';
 import { viewBookmarks } from './views/viewBookmarks.js';
 import { viewAddRecipe } from './views/viewAddRecipe.js';
+import { HIDE_FORM_TIMEOUT } from './config.js';
 
 
 // https://forkify-api.herokuapp.com/v2
@@ -102,10 +103,27 @@ const controlBookmarks = function(){
 }
 
 const controlAddRecipe = async function(newRecipe){
-  const data = newRecipe;
+  try{
+    // render spinner
+    viewAddRecipe.renderSpinner();
 
-  // Upload
-  await model.uploadNewRecipe(data);
+    // Upload
+    await model.uploadNewRecipe(newRecipe);
+
+    // render sucess message
+    viewAddRecipe.renderMessage();
+
+    // render the viewRecipe
+    viewRecipe.render(model.state.recipe);
+
+    // hide the form
+    setTimeout(() => {
+      viewAddRecipe._toggleWindow();
+    }, HIDE_FORM_TIMEOUT);
+  }
+  catch(err){
+    viewAddRecipe.renderErrorMessage(err.message);
+  }
 }
 
 // window.addEventListener('hashchange', controlRecipes);
