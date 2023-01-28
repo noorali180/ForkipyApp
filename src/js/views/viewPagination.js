@@ -6,6 +6,7 @@ import View from "./view.js";
 class ViewPagination extends View {
   _parentEl = document.querySelector(".pagination");
 
+  // function to generate HTML markup...
   _generateMarkup() {
     const numOfPages = Math.ceil(
       this._data.results.length / this._data.resultsPerPage
@@ -65,8 +66,10 @@ class ViewPagination extends View {
     return ``;
   }
 
+  // function: handler function, triggers on click, set pagination...
   addHandlerClick(handler) {
     this._parentEl.addEventListener("click", function (e) {
+      // target = pagination buttons.
       const target = e.target.closest(".btn--inline");
       if (!target) return;
 
