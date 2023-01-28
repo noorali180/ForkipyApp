@@ -1,5 +1,5 @@
-import icons from "../../img/icons.svg"; // parcel 1
-// import icons from "url:../../img/icons.svg"; // parcel 2
+// import icons from "../../img/icons.svg"; // parcel 1
+import icons from "url:../../img/icons.svg"; // parcel 2
 
 import { previewView } from "./previewView.js";
 import View from "./view";

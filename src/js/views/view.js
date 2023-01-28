@@ -1,5 +1,5 @@
-import icons from "../../img/icons.svg"; // parcel 1
-// import icons from "url:../../img/icons.svg"; // parcel 2
+// import icons from "../../img/icons.svg"; // parcel 1
+import icons from "url:../../img/icons.svg"; // parcel 2
 
 export default class View {
   _data;
@@ -7,6 +7,15 @@ export default class View {
   #clear() {
     this._parentEl.innerHTML = "";
   }
+
+  /**
+   * 
+   * @param {Object | Object[]} data The data to be rendered in DOM.
+   * @param {boolean} render if not true then only markup will be generated not added in DOM.
+   * @returns {undefined | string} return html markup as string.
+   * @this {Object} View instance
+   * @author Noor Ali
+   */
 
   render(data, render = true) {
     if (!data || (Array.isArray(data) && data.length === 0))
