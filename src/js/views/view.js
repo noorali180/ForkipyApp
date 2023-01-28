@@ -1,6 +1,7 @@
 // import icons from "../../img/icons.svg"; // parcel 1
 import icons from "url:../../img/icons.svg"; // parcel 2
 
+// PARENT CLASS OF ALL VIEWS...
 export default class View {
   _data;
 
@@ -8,6 +9,7 @@ export default class View {
     this._parentEl.innerHTML = "";
   }
 
+  // function to render the generated markup to DOM...
   /**
    * 
    * @param {Object | Object[]} data The data to be rendered in DOM.
@@ -16,7 +18,6 @@ export default class View {
    * @this {Object} View instance
    * @author Noor Ali
    */
-
   render(data, render = true) {
     if (!data || (Array.isArray(data) && data.length === 0))
       return this.renderErrorMessage();
@@ -31,6 +32,7 @@ export default class View {
     this._parentEl.insertAdjacentHTML("afterbegin", markup);
   }
 
+  // function to render spinner to the DOM...
   renderSpinner = function () {
     const markup = `
             <div class="spinner">
@@ -44,6 +46,12 @@ export default class View {
     this._parentEl.insertAdjacentHTML("afterbegin", markup);
   };
 
+  // function, same as render function but only re-renders the changed elements of DOM...
+  // note: DOM Updating Algorithm... 
+  /**
+   * 
+   * @param {Object | undefined} data data to be rendered
+   */
   update(data) {
     this._data = data;
 
@@ -77,6 +85,11 @@ export default class View {
     });
   }
 
+  // function to render success message to the DOM...
+  /**
+   * Error Message
+   * @param {String} message message to be rendered
+   */
   renderErrorMessage(message = this._errorMessage) {
     const markup = `
         <div class="error">
@@ -93,6 +106,11 @@ export default class View {
     this._parentEl.insertAdjacentHTML("afterbegin", markup);
   }
 
+  // function to render success message to the DOM...
+  /**
+   * Success Message
+   * @param {String} message message to be rendered
+   */
   renderMessage(message = this._message) {
     const markup = `
         <div class="recipe">
