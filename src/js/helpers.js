@@ -1,3 +1,9 @@
+// function: timeout function to terminate fetch or post request if it takes longer time than TIMEOUT_SEC...
+/**
+ * 
+ * @param {number} s time in seconds
+ * @returns {Promise} always returns a rejected promise
+ */
 export const timeout = function (s) {
   return new Promise(function (_, reject) {
     setTimeout(function () {
@@ -6,6 +12,13 @@ export const timeout = function (s) {
   });
 };
 
+// function: function for uploading or retrieving data from API...
+/**
+ * 
+ * @param {String} url url of API 
+ * @param {Object | undefined} [uploadData = undefined] data to be uploaded, if undefined then data will be fetched only
+ * @returns {Promise} returns a promise
+ */
 export const AJAX = async function (url, uploadData = undefined) {
   try {
     let res;
