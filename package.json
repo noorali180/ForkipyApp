@@ -2,9 +2,10 @@
   "name": "forkify-app",
   "version": "1.0.0",
   "description": "",
+  "default": "index.html",
   "scripts": {
     "start": "parcel index.html",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html --dist-dir ./dist"
   },
   "author": "noor-ali",
   "license": "ISC",
