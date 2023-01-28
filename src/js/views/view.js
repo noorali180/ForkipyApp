@@ -11,7 +11,7 @@ export default class View {
   /**
    * 
    * @param {Object | Object[]} data The data to be rendered in DOM.
-   * @param {boolean} render if not true then only markup will be generated not added in DOM.
+   * @param {boolean} [render = true] if not true then only markup will be generated not added in DOM.
    * @returns {undefined | string} return html markup as string.
    * @this {Object} View instance
    * @author Noor Ali
