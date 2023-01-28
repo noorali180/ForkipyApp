@@ -6,6 +6,7 @@ import View from "./view";
 class PreviewView extends View {
   // _parentEl = document.querySelector('*');
 
+  // function to generate HTML markup...
   _generateMarkup() {
     const id = window.location.hash.slice(1);
 

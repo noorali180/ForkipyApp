@@ -9,6 +9,7 @@ class ViewResults extends View {
   _errorMessage = "No recipes found for your query! Please try again ;)";
   _message = "";
 
+  // function to generate HTML markup...
   _generateMarkup() {
     return this._data
       .map((results) => previewView.render(results, false))
