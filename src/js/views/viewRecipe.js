@@ -9,6 +9,7 @@ class ViewRecipe extends View {
   _errorMessage = "We could not find that recipe. Please try another one!";
   _message = "";
 
+  // function to generate HTML markup for ingredients (array)...
   #generateRecipeIngredientsMarkup(ing) {
     return `
             <li class="recipe__ingredient">
@@ -26,6 +27,7 @@ class ViewRecipe extends View {
         `;
   }
 
+  // function to generate HTML markup...
   _generateMarkup() {
     return `
             <figure class="recipe__fig">
@@ -122,14 +124,17 @@ class ViewRecipe extends View {
         `;
   }
 
+  // function: handler function, triggers on [hashchange, load]...
   addHandlerRender(handler) {
     ["hashchange", "load"].forEach((ev) => {
       window.addEventListener(ev, handler);
     });
   }
 
+  // function: handler function, triggers on click (increase | decrease) servings...
   addHandlerUpdateServings(handler) {
     this._parentEl.addEventListener("click", function (e) {
+      // target = increase/decrease servings buttons.
       const btn = e.target.closest(".btn--tiny");
       if (!btn) return;
 
@@ -139,10 +144,13 @@ class ViewRecipe extends View {
     });
   }
 
+  // function: handler function, triggers on click (add | delete) bookmark...
   addHandlerAddBookmark(handler) {
     this._parentEl.addEventListener("click", function (e) {
+      // target = bookmark btn on the BTN.
       const btn = e.target.closest(".btn--bookmark");
       if (!btn) return;
+
       handler();
     });
   }
