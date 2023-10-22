@@ -16,6 +16,7 @@
     "parcel": "^2.8.2"
   },
   "dependencies": {
+    "@mathematics/fraction": "^1.0.0-beta.4",
     "core-js": "^3.27.1",
     "fractional": "^1.0.0",
     "regenerator-runtime": "^0.13.11",

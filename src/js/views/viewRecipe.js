@@ -4,6 +4,7 @@ import icons from "url:../../img/icons.svg"; // parcel 2
 // import { Fraction } from "fractional";
 import View from "./view.js";
 
+const Fraction = require('@mathematics/fraction');
 class ViewRecipe extends View {
   _parentEl = document.querySelector(".recipe");
   _errorMessage = "We could not find that recipe. Please try another one!";
@@ -11,13 +12,17 @@ class ViewRecipe extends View {
 
   // function to generate HTML markup for ingredients (array)...
   #generateRecipeIngredientsMarkup(ing) {
+    const fraction = new Fraction(ing.quantity);
+    const numerator = fraction._numerator;
+    const denominator = fraction._denominator;
+
     return `
             <li class="recipe__ingredient">
                 <svg class="recipe__icon">
                     <use href="${icons}.svg#icon-check"></use>
                 </svg>
                 <div class="recipe__quantity">${
-                  ing.quantity ? ing.quantity : ""
+                  ing.quantity ? `${numerator}/${denominator}` : ""
                 }</div>
                 <div class="recipe__description">
                     <span class="recipe__unit">${ing.unit}</span>
