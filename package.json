@@ -5,7 +5,9 @@
   "default": "index.html",
   "scripts": {
     "start": "parcel index.html",
-    "build": "parcel build index.html --dist-dir ./dist"
+    "build": "parcel build index.html --dist-dir ./dist",
+    "watch": "parcel index.html --open",
+    "live": "npm-run-all --parallel start watch"
   },
   "author": "noor-ali",
   "license": "ISC",
